@@ -13,5 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\source">
+      <UniqueIdentifier>{be5a05b7-0710-4e94-88ea-b794a1eee594}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\learn.h">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\learn.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="external\libcrypto-1_1-x64.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="external\libcurl-x64.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="external\libssl-1_1-x64.dll">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
