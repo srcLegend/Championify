@@ -16,6 +16,9 @@
     <Filter Include="Source Files\source">
       <UniqueIdentifier>{be5a05b7-0710-4e94-88ea-b794a1eee594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\DLL">
+      <UniqueIdentifier>{3de033d7-1d16-433e-aef7-d7f051741978}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -30,13 +33,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="external\libcrypto-1_1-x64.dll">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\DLL</Filter>
     </None>
     <None Include="external\libcurl-x64.dll">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\DLL</Filter>
     </None>
     <None Include="external\libssl-1_1-x64.dll">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\DLL</Filter>
     </None>
   </ItemGroup>
 </Project>
