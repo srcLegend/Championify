@@ -16,20 +16,31 @@
     <Filter Include="Source Files\source">
       <UniqueIdentifier>{be5a05b7-0710-4e94-88ea-b794a1eee594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\source">
+      <UniqueIdentifier>{67439f65-8f23-442f-91c5-b7222ebb9384}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource Files\DLL">
-      <UniqueIdentifier>{3de033d7-1d16-433e-aef7-d7f051741978}</UniqueIdentifier>
+      <UniqueIdentifier>{8c23bdfa-c659-41bd-99e8-615c363d9d7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\learn.h">
-      <Filter>Source Files\source</Filter>
-    </ClCompile>
     <ClCompile Include="source\learn.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
+    <ClCompile Include="source\learn.h">
+      <Filter>Header Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\request.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\request.h">
+      <Filter>Header Files\source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="external\libcrypto-1_1-x64.dll">

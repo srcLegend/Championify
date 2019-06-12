@@ -22,6 +22,10 @@
     <ClCompile Include="source\learn.cpp" />
     <ClCompile Include="source\learn.h" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\request.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\request.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="external\libcrypto-1_1-x64.dll" />
@@ -87,13 +91,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\include;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>curl/lib/libcurl.dll.a;openssl/lib/libcrypto.dll.a;openssl/lib/libssl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libcrypto.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libssl.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\lib\libcurl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
     <PostBuildEvent>
       <Command>xcopy /Y  "$(ProjectDir)\external\*.*" "$(OutDir)"</Command>
     </PostBuildEvent>
@@ -104,13 +108,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\include;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>curl/lib/libcurl.dll.a;openssl/lib/libcrypto.dll.a;openssl/lib/libssl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libcrypto.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libssl.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\lib\libcurl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
     <PostBuildEvent>
       <Command>xcopy /Y  "$(ProjectDir)\external\*.*" "$(OutDir)"</Command>
     </PostBuildEvent>
@@ -123,15 +127,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\include;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>curl/lib/libcurl.dll.a;openssl/lib/libcrypto.dll.a;openssl/lib/libssl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libcrypto.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libssl.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\lib\libcurl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
     <PostBuildEvent>
       <Command>xcopy /Y  "$(ProjectDir)\external\*.*" "$(OutDir)"</Command>
     </PostBuildEvent>
@@ -144,15 +148,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\include;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>curl/lib/libcurl.dll.a;openssl/lib/libcrypto.dll.a;openssl/lib/libssl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\openssl_1.1.1C;C:\Users\srcLegend\Documents\Visual Studio 2019\Includes\curl_7.65.1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libcrypto.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\openssl_1.1.1C\lib\libssl.dll.a;%USERPROFILE%\Documents\Visual Studio 2019\Includes\curl_7.65.1\lib\libcurl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
     <PostBuildEvent>
       <Command>xcopy /Y  "$(ProjectDir)\external\*.*" "$(OutDir)"</Command>
     </PostBuildEvent>
