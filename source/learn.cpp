@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-int learn(){
+void learn(){
 	std::ios_base::sync_with_stdio(false);
 		// Create a vector containing integers
 	std::vector<std::string> v = {"7", "5", "16", "8"};
@@ -38,5 +38,4 @@ int learn(){
 	std::cout << "Address of pVar                    = " << &pVar << std::endl;
 
 	std::ios_base::sync_with_stdio(true);
-	return 0;
 }
