@@ -3,18 +3,18 @@
 //
 //#include <curl/curl.h>
 //
-//size_t curlCallback(void *contents, size_t size, size_t nmemb, std::string *data){
+//size_t curlCallback(void *contents, size_t size, size_t nmemb, std::string *data) {
 //	size_t newLength = size * nmemb;
-//	try{
-//		data -> append((char *)contents, newLength);
-//	} catch (std::bad_alloc &e){
+//	try {
+//		data->append((char *)contents, newLength);
+//	} catch (std::bad_alloc &e) {
 //		std::cerr << "Memory problems!" << std::endl;
 //		return 1;
 //	}
 //	return newLength;
 //}
 //
-//void request(std::string link, std::string &dataOut, bool cleanup){
+//void request(std::string link, std::string &dataOut, bool cleanup) {
 //	CURL *curlHandle;
 //	CURLcode response;
 //	std::string data;
@@ -37,13 +37,13 @@
 //	response = curl_easy_perform(curlHandle);
 //
 //		// Check for errors
-//	if (response != CURLE_OK){
+//	if (response != CURLE_OK) {
 //		std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(response) << std::endl;
-//	} else{
+//	} else {
 //		dataOut = data;
 //	}
 //
-//	if (cleanup){
+//	if (cleanup) {
 //			// Cleanup curl stuff once done
 //		curl_easy_cleanup(curlHandle);
 //			// Done with libcurl, so clean it up

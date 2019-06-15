@@ -1,56 +1,76 @@
-#include <csignal>
 #include <curl/curl.h>
-#include <iostream>
 #include <rapidjson/document.h>
+#include <iostream>
 #include <string>
+#include <vector>
 //#include "learn.h"
 //#include "request.h"
 
-size_t curlCallback(void *contents, size_t size, size_t nmemb, std::string *data){
+size_t curlCallback(void *contents, size_t size, size_t nmemb, std::string *data) {
 	size_t newLength = size * nmemb;
-	try{
+	try {
 		data->append((char *)contents, newLength);
-	} catch (std::bad_alloc){
+	} catch (std::bad_alloc) {
 		std::cerr << "Memory problems!" << std::endl;
 		return 1;
 	}
 	return newLength;
 }
 
-void signal_handler(int signal){
-	if (signal == SIGABRT){
-		std::cerr << "SIGABRT received" << std::endl;
-	} else {
-		std::cerr << "Unexpected signal " << signal << " received" << std::endl;
-	}
-	std::_Exit(EXIT_FAILURE);
-}
-
-void testing(std::string &data){
-	//std::string json = "{\"project\":\"rapidjson\",\"stars\":10}";
+void testing(std::string &data) {
 	rapidjson::Document document;
 	document.Parse(data.c_str());
-
-	try{
-		assert(document.HasMember("id8"));
-	} catch (int e){
-		std::cerr << "Member id doesn't exist!" << e << std::endl;
+	/*
+	{
+		"status":
+		{
+			"message":"Forbidden",
+			"status_code":403
+		}
 	}
-	assert(document["id"].IsString());
-	std::cout << "id = " << document["id"].GetString() << std::endl;
+	*/
+	std::string key;
+	std::string key2;
+	for (auto i = document.MemberBegin(); i != document.MemberEnd(); ++i) {
+		key = i->name.GetString();
+		if (key == "status") {
+			for (auto a = document[std::to_string(key)].MemberBegin(); a != document[std::to_string(key)].MemberEnd(); ++a) {
+				key2 = a->name.GetString();
+				std::cout << "Key: " << key2 << "\n";
+			}
+			std::cout << "Key: " << key << "\n";
+		}
+	}
+
+	if (document["status"].HasMember("message")) {
+		std::cout << "status exists\n";
+		if (document["status"]["message"].IsString()) {
+			std::cout << "status is a string and its value is : " << document["status"]["message"].GetString() << std::endl;
+		} else {
+			std::cerr << "status is a not string" << std::endl;
+		}
+	} else {
+		std::cerr << "status doesn't exist" << std::endl;
+	}
 }
 
-int main(){
-	auto previous_handler = std::signal(SIGABRT, signal_handler);
-	if (previous_handler == SIG_ERR){
-		std::cerr << "Setup failed\n";
-		return EXIT_FAILURE;
-	}
+int main() {
+		// Brazil, EUNE, EUW, Japan, Korea, Latin America North, Latin America South, NA, Oceania, Turkey, Russia, PBE
+	std::vector<std::string> regionalEndpoint = {"br1", "eun1", "euw1", "jp1", "kr", "la1", "la2", "na1", "oc1", "tr1", "ru", "pbe1"};
+		// Brazil, EUNE, EUW, Japan, Korea, Latin America North, Latin America South, NA, Oceania, Turkey, Russia, PBE
+	enum Regions { BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE };
+
+	const std::string api = "RGAPI-240a2121-e6e2-4424-83fe-ab2996bcfb4b";
+	const std::string apiMethod = "/lol/summoner/v4/summoners/by-name/";
+	const std::string apiValue = "AzirionSol";
+	std::string host = regionalEndpoint[NA] + ".api.riotgames.com";
+	std::string link = "https://" + host + apiMethod + apiValue + "?api_key=" + api;
+
+	std::cout << host << std::endl;
 
 	CURL *curlHandle;
 	CURLcode response;
 	std::string data;
-	std::string link = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/AzirionSol?api_key=RGAPI-240a2121-e6e2-4424-83fe-ab2996bcfb4b";
 
 	curl_global_init(CURL_GLOBAL_ALL);
 		// Init the curl session
@@ -69,11 +89,14 @@ int main(){
 	response = curl_easy_perform(curlHandle);
 
 		// Check for errors
-	if (response != CURLE_OK){
+	if (response != CURLE_OK) {
 		std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(response) << std::endl;
-	} else{
+	} else {
+		std::cout << response << std::endl;
 		std::cout << data << std::endl;
 	}
+
+	std::cout << regionalEndpoint[NA] << std::endl;
 
 	testing(data);
 		// Cleanup curl stuff once done

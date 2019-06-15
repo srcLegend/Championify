@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-void learn(){
+void learn() {
 	std::ios_base::sync_with_stdio(false);
 		// Create a vector containing integers
 	std::vector<std::string> v = {"7", "5", "16", "8"};
@@ -12,7 +12,7 @@ void learn(){
 	v.push_back("13");
 
 		// Iterate and print values of vector
-	for (auto &i : v){
+	for (auto &i : v) {
 		std::cout << i << std::endl;
 	}
 
