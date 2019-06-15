@@ -30,17 +30,12 @@
     <ClCompile Include="source\learn.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\learn.h">
-      <Filter>Header Files\source</Filter>
-    </ClCompile>
     <ClCompile Include="source\request.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="source\request.h">
+    <ClCompile Include="source\learn.hpp">
       <Filter>Header Files\source</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="external\libcrypto-1_1-x64.dll">
@@ -52,5 +47,10 @@
     <None Include="external\libssl-1_1-x64.dll">
       <Filter>Resource Files\DLL</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\request.hpp">
+      <Filter>Header Files\source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

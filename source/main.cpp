@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//#include "learn.h"
-//#include "request.h"
+//#include "learn.hpp"
+//#include "request.hpp"
 
 size_t curlCallback(void *contents, size_t size, size_t nmemb, std::string *data) {
 	size_t newLength = size * nmemb;
@@ -34,10 +34,10 @@ void testing(std::string &data) {
 	for (auto i = document.MemberBegin(); i != document.MemberEnd(); ++i) {
 		key = i->name.GetString();
 		if (key == "status") {
-			for (auto a = document[std::to_string(key)].MemberBegin(); a != document[std::to_string(key)].MemberEnd(); ++a) {
-				key2 = a->name.GetString();
-				std::cout << "Key: " << key2 << "\n";
-			}
+			//for (auto a = document[std::to_string(key)].MemberBegin(); a != document[std::to_string(key)].MemberEnd(); ++a) {
+			//	key2 = a->name.GetString();
+			//	std::cout << "Key: " << key2 << "\n";
+			//}
 			std::cout << "Key: " << key << "\n";
 		}
 	}
