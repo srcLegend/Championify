@@ -1,4 +1,4 @@
 #pragma once
-//#include <string>
+#include <string>
 
-//void request(std::string link, std::string &dataOut, bool cleanup);
+void request(std::string &link, std::string &data, bool cleanup);
