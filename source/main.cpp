@@ -5,31 +5,32 @@
 #include "request.hpp"
 
 
-template <typename TYPE> std::string valueString(TYPE &document, const char *keyName, int valueType) {
-	std::string value;
+template <typename TYPE> std::string valueString(TYPE &document, const char *keyName, int valueType, char numberType) {
 	switch (valueType) {
-		case 0: {
+		case 0: { // Null
 			return "Null";
 		}
-		case 1: {
+		case 1: { // False
 			return "False";
 		}
-		case 2: {
+		case 2: { // True
 			return "True";
 		}
-		case 3: {
+		case 3: { // Object
 			return "Object";
 		}
-		case 4: {
+		case 4: { // Array
 			return "Array";
 		}
-		case 5: {
-			return "String";
+		case 5: { // String
+			return document[keyName].GetString();
 		}
-		case 6: {
-			value = std::to_string(document[keyName].GetInt());
-			std::cout << "Hi!" << std::endl;
-			return value;
+		case 6: { // Number
+			switch (numberType) {
+				case 'i': { // Int
+					return std::to_string(document[keyName].GetInt());
+				}
+			}
 		}
 	}
 }
@@ -69,7 +70,7 @@ void parseData(std::string &data, const char *keyName, int level, std::string &v
 				if (document[i.name].HasMember(keyName)) {
 					std::cout << "Document has member " << keyName << " at level 1\n";
 					//std::cout << "Member value is " << document[i.name][keyName].GetString() << std::endl;
-					test = valueString(document[i.name], keyName, document[i.name][keyName].GetType());
+					test = valueString(document[i.name], keyName, document[i.name][keyName].GetType(), 'i');
 					std::cout << test << std::endl;
 				} else {
 					std::cout << "Couldn't find " << keyName << " at level 1" << std::endl;
@@ -115,7 +116,7 @@ int main() {
 		OCE, TR,   RU,  PBE
 	};
 
-	const std::string api          = "?api_key=RGAPI-45692304-fdb5-4b93-b75a-21dc9a273bb38";
+	const std::string api          = "?api_key=RGAPI-45692304-fdb5-4b93-b75a-21dc9a273bb3";
 	std::string apiDataHost        = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
 	std::string staticDataHost     = "https://ddragon.leagueoflegends.com";
 	std::vector<std::string> links = {
@@ -126,8 +127,8 @@ int main() {
 	std::string version;
 	std::string language;
 
-	request(links[1], data, false);
-	parseData(data, "status_code", 1, version);
+	request(links[0], data, false);
+	parseData(data, "v", 0, version);
 	parseData(data, "l", 0, language);
 
 
