@@ -23,7 +23,7 @@ int main() {
 	};
 
 	const std::string api          = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
-	std::string apiHost        = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
+	std::string apiHost            = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
 	std::string staticDataHost     = "https://ddragon.leagueoflegends.com";
 	std::vector<std::string> links = {
 		staticDataHost + "/realms/" + realmsEndpoint[NA] + ".json",
@@ -37,21 +37,15 @@ int main() {
 	data = request(links[0], false);
 	parseJSON(data, "v", version);
 	parseJSON(data, "l", language);
-	std::cout << version[0] << std::endl;
-	std::cout << language[0] << std::endl;
 
 	links.push_back(staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/champion.json");
 
 	std::vector<std::string> championIds;
-	std::cout << links[2] << "\n";
 	data = request(links[2], true);
 	parseJSON(data, "id", championIds);
 	for (auto &i : championIds) {
 		std::cout << i << "\n";
 	}
-	std::cout << "\n\n" << data << "\n\n" << std::endl;
-	std::cout << championIds[0] << std::endl;
-
 
 	system("pause");
 	return 0;
