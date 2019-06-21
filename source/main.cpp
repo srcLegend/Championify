@@ -1,14 +1,16 @@
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 #include <rapidjson/document.h>
 #include "request.hpp"
 
 
-template <typename TYPE> std::string valueString(TYPE &document, const char *keyName, int valueType, char numberType) {
+template <typename T> std::string getValueInString(T &document, std::string &keyName) {
+	int valueType = document[keyName.c_str()].GetType();
 	switch (valueType) {
 		case 0: { // Null
-			return "Null";
+			return "0";
 		}
 		case 1: { // False
 			return "False";
@@ -23,80 +25,54 @@ template <typename TYPE> std::string valueString(TYPE &document, const char *key
 			return "Array";
 		}
 		case 5: { // String
-			return document[keyName].GetString();
+			return document[keyName.c_str()].GetString();
 		}
 		case 6: { // Number
-			switch (numberType) {
-				case 'i': { // Int
-					return std::to_string(document[keyName].GetInt());
-				}
+			return std::to_string(document[keyName.c_str()].GetInt());
+		}
+	}
+}
+
+template <typename T> void parseRecursively(T &document, std::string &keyName, std::vector<std::string> &value) {
+	if (document.HasMember(keyName.c_str())) {
+		std::cout << "0. Key name : " << keyName << "\n";
+		std::cout << "0. Key value : " << document[keyName.c_str()].GetString() << "\n";
+		value.push_back(document[keyName.c_str()].GetString());
+	} else {
+		for (auto &i : document.GetObject()) {
+			if (document[i.name].GetType() == 3) {
+				parseRecursively(document[i.name], keyName, value);
+			} else if (document.HasMember(keyName.c_str())) {
+				std::cout << "2. Key name : " << i.name.GetString() << "\n";
+				std::cout << "2. Key value : " << i.value.GetString() << "\n";
+				value.push_back(i.value.GetString());
+
+			} else {
+				std::cout << "3. Key name : " << i.name.GetString() << "\n";
 			}
 		}
 	}
 }
 
-void parseData(std::string &data, const char *keyName, int level, std::string &value) {
+void parseJSON(std::string &data, std::string keyName, std::vector<std::string> &value) {
 	rapidjson::Document document;
 	document.Parse(data.c_str());
-	std::string test;
 
-	//if (document.HasMember("status")) {
-	//	std::cerr << "Connection problem : " << document["status"]["message"].GetString() << "\n";
-	//	switch (document["status"]["status_code"].GetInt()) {
-	//		case 403: {
-	//			std::cerr << "Probably an invalid API key" << std::endl;
-	//			break;
-	//		}
-	//		default: {
-	//			std::cerr << "Error : " << document["status"]["status_code"].GetInt() << std::endl;
-	//			break;
-	//		}
-	//	}
-	//	return;
-	//}
-
-	switch (level) {
-		case 0: {
-			if (document.HasMember(keyName)) {
-				std::cout << "Document has member " << keyName << "\n";
-				std::cout << "Member value is " << document[keyName].GetString() << std::endl;
-			} else {
-				std::cout << "Couldn't find " << keyName << std::endl;
+	if (document.HasMember("status")) {
+		std::cerr << "Connection problem : " << document["status"]["message"].GetString() << "\n";
+		switch (document["status"]["status_code"].GetInt()) {
+			case 403: {
+				std::cerr << "Probably an invalid API key" << std::endl;
+				break;
 			}
-			break;
-		}
-		case 1: {
-			for (auto &i : document.GetObject()) {
-				if (document[i.name].HasMember(keyName)) {
-					std::cout << "Document has member " << keyName << " at level 1\n";
-					//std::cout << "Member value is " << document[i.name][keyName].GetString() << std::endl;
-					test = valueString(document[i.name], keyName, document[i.name][keyName].GetType(), 'i');
-					std::cout << test << std::endl;
-				} else {
-					std::cout << "Couldn't find " << keyName << " at level 1" << std::endl;
-				}
+			default: {
+				std::cerr << "Error : " << document["status"]["status_code"].GetInt() << std::endl;
 				break;
 			}
 		}
+	} else {
+		parseRecursively(document, keyName, value);
 	}
-
-	for (auto &i : document.GetObject()) {
-		if (i.name != "status") {
-			if (i.name == keyName) {
-				value = i.value.GetString();
-				std::cout << "Found " << keyName << " : " << value << std::endl;
-			}
-		} else {
-			for (auto &k : document[i.name].GetObject()) {
-				if (k.name == "status_code") {
-					if (k.value == 403) {
-						std::cerr << "Forbidden connection. API key probably expired" << std::endl;
-					}
-				}
-			}
-		}
-	}
-
 }
 
 int main() {
@@ -116,31 +92,42 @@ int main() {
 		OCE, TR,   RU,  PBE
 	};
 
-	const std::string api          = "?api_key=RGAPI-45692304-fdb5-4b93-b75a-21dc9a273bb3";
-	std::string apiDataHost        = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
+	const std::string api          = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
+	std::string apiHost        = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
 	std::string staticDataHost     = "https://ddragon.leagueoflegends.com";
 	std::vector<std::string> links = {
 		staticDataHost + "/realms/" + realmsEndpoint[NA] + ".json",
-		apiDataHost + "/lol/summoner/v4/summoners/by-name/" + "AzirionSol" + api,
+		apiHost + "/lol/summoner/v4/summoners/by-name/" + "AzirionSol" + api,
 	};
 	std::string data;
-	std::string version;
-	std::string language;
+	std::vector<std::string> version;
+	std::vector<std::string> language;
+	std::vector<std::string> championIds;
+
+
+
 
 	request(links[0], data, false);
-	parseData(data, "v", 0, version);
-	parseData(data, "l", 0, language);
-
-
+	parseJSON(data, "v", version);
+	parseJSON(data, "l", language);
 	std::cout << "\n\n" << data << "\n\n" << std::endl;
-	std::cout << version << std::endl;
-	std::cout << language << std::endl;
+	data = "";
+	std::cout << version[0] << std::endl;
+	std::cout << language[0] << std::endl;
 
 	std::vector<std::string> cdnLinks = {
-		staticDataHost + "/cdn/" + version + "/data/" + language + "champion.json"
+		staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/champion.json",
 	};
 
+	data = "";
+	std::cout << cdnLinks[0] << "\n";
 	request(cdnLinks[0], data, true);
+	parseJSON(data, "id", championIds);
+	for (auto &i : championIds) {
+		std::cout << i << "\n";
+	}
+	// std::cout << "\n\n" << data << "\n\n" << std::endl;
+	// std::cout << championIds[0] << std::endl;
 
 
 	system("pause");
