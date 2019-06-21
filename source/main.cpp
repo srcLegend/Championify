@@ -26,7 +26,9 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 					break;
 				}
 				case 3: {
+					std::cout << "Looking within key " << i.name.GetString() << " of type Object\n";
 					parseRecursively(document[i.name], keyName, value);
+					std::cout << "Done with key " << i.name.GetString() << " of type Object\n";
 					break;
 				}
 				case 4: {
@@ -37,6 +39,7 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 					if (document.HasMember(keyName.c_str())) {
 						value.push_back(i.value.GetString());
 					}
+					std::cout << "Unwanted key " << i.name.GetString() << " of type String\n";
 					break;
 				}
 				case 6: {
@@ -45,7 +48,6 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 				}
 				default: {
 					std::cout << "Unknown key type : " << i.name.GetString() << "\n";
-					break;
 				}
 			}
 		}
@@ -85,14 +87,14 @@ int main() {
 		"oce", "tr",  "ru",   "pbe"
 	};
 	enum Regions {
-		BR, EUNE, EUW, JP,
-		KR, LAN, LAS, NA,
-		OCE, TR, RU, PBE
+		BR,  EUNE, EUW, JP,
+		KR,  LAN,  LAS, NA,
+		OCE, TR,   RU,  PBE
 	};
 
-	const std::string api = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
-	std::string apiHost = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
-	std::string staticDataHost = "https://ddragon.leagueoflegends.com";
+	const std::string api          = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
+	std::string apiHost        = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
+	std::string staticDataHost     = "https://ddragon.leagueoflegends.com";
 	std::vector<std::string> links = {
 		staticDataHost + "/realms/" + realmsEndpoint[NA] + ".json",
 		apiHost + "/lol/summoner/v4/summoners/by-name/" + "AzirionSol" + api,
