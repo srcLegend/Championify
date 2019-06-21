@@ -13,22 +13,39 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 		for (auto &i : document.GetObject()) {
 				// GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
 			switch (document[i.name].GetType()) {
-				case 0: break;
-				case 1: break;
-				case 2: break;
+				case 0: {
+					std::cout << "Key " << i.name.GetString() << " of type Null\n";
+					break;
+				}
+				case 1: {
+					std::cout << "Key " << i.name.GetString() << " of type False\n";
+					break;
+				}
+				case 2: {
+					std::cout << "Key " << i.name.GetString() << " of type True\n";
+					break;
+				}
 				case 3: {
 					parseRecursively(document[i.name], keyName, value);
 					break;
 				}
-				case 4: break;
+				case 4: {
+					std::cout << "Key " << i.name.GetString() << " of type Array\n";
+					break;
+				}
 				case 5: {
 					if (document.HasMember(keyName.c_str())) {
 						value.push_back(i.value.GetString());
 					}
+					break;
 				}
-				case 6: break;
+				case 6: {
+					std::cout << "Key " << i.name.GetString() << " of type Number\n";
+					break;
+				}
 				default: {
 					std::cout << "Unknown key type : " << i.name.GetString() << "\n";
+					break;
 				}
 			}
 		}
