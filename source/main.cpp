@@ -5,7 +5,7 @@
 #include <rapidjson/document.h>
 #include "request.hpp"
 
-
+// git push test
 template <typename T> std::string getValueInString(T &document, std::string &keyName) {
 	int valueType = document[keyName.c_str()].GetType();
 	switch (valueType) {
