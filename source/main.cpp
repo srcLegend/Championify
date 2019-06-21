@@ -11,14 +11,25 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 		value.push_back(document[keyName.c_str()].GetString());
 	} else {
 		for (auto &i : document.GetObject()) {
-                // GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
-			if (document[i.name].GetType() == 3) {
-				parseRecursively(document[i.name], keyName, value);
-			} else if (document[i.name].GetType() == 5 && document.HasMember(keyName.c_str())) {
-				value.push_back(i.value.GetString());
-
-			} else {
-				std::cout << "3. Key name : " << i.name.GetString() << "\n";
+				// GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
+			switch (document[i.name].GetType()) {
+				case 0: break;
+				case 1: break;
+				case 2: break;
+				case 3: {
+					parseRecursively(document[i.name], keyName, value);
+					break;
+				}
+				case 4: break;
+				case 5: {
+					if (document.HasMember(keyName.c_str())) {
+						value.push_back(i.value.GetString());
+					}
+				}
+				case 6: break;
+				default: {
+					std::cout << "Unknown key type : " << i.name.GetString() << "\n";
+				}
 			}
 		}
 	}
