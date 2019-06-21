@@ -13,8 +13,9 @@ size_t curlCallback(void *contents, size_t size, size_t nmemb, std::string *data
 	return newLength;
 }
 
-void request(std::string &link, std::string &data, bool cleanup) {
+std::string request(std::string &link, bool cleanup) {
 	CURL *curlHandle;
+	std::string data;
 	if (&curlHandle) {
 		CURLcode response;
 		curl_global_init(CURL_GLOBAL_WIN32);
@@ -37,7 +38,6 @@ void request(std::string &link, std::string &data, bool cleanup) {
 		if (response != CURLE_OK) {
 			std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(response) << std::endl;
 		}
-
 		if (cleanup) {
 				// Cleanup curl stuff once done
 			curl_easy_cleanup(curlHandle);
@@ -45,4 +45,5 @@ void request(std::string &link, std::string &data, bool cleanup) {
 			curl_global_cleanup();
 		}
 	}
+	return data;
 }
