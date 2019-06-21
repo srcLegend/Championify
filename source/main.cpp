@@ -6,45 +6,15 @@
 #include "request.hpp"
 
 
-template <typename T> std::string getValueInString(T &document, std::string &keyName) {
-	int valueType = document[keyName.c_str()].GetType();
-	switch (valueType) {
-		case 0: { // Null
-			return "0";
-		}
-		case 1: { // False
-			return "False";
-		}
-		case 2: { // True
-			return "True";
-		}
-		case 3: { // Object
-			return "Object";
-		}
-		case 4: { // Array
-			return "Array";
-		}
-		case 5: { // String
-			return document[keyName.c_str()].GetString();
-		}
-		case 6: { // Number
-			return std::to_string(document[keyName.c_str()].GetInt());
-		}
-	}
-}
-
 template <typename T> void parseRecursively(T &document, std::string &keyName, std::vector<std::string> &value) {
 	if (document.HasMember(keyName.c_str())) {
-		std::cout << "0. Key name : " << keyName << "\n";
-		std::cout << "0. Key value : " << document[keyName.c_str()].GetString() << "\n";
 		value.push_back(document[keyName.c_str()].GetString());
 	} else {
 		for (auto &i : document.GetObject()) {
+                // GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
 			if (document[i.name].GetType() == 3) {
 				parseRecursively(document[i.name], keyName, value);
-			} else if (document.HasMember(keyName.c_str())) {
-				std::cout << "2. Key name : " << i.name.GetString() << "\n";
-				std::cout << "2. Key value : " << i.value.GetString() << "\n";
+			} else if (document[i.name].GetType() == 5 && document.HasMember(keyName.c_str())) {
 				value.push_back(i.value.GetString());
 
 			} else {
