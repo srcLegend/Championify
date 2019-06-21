@@ -85,14 +85,14 @@ int main() {
 		"oce", "tr",  "ru",   "pbe"
 	};
 	enum Regions {
-		BR,  EUNE, EUW, JP,
-		KR,  LAN,  LAS, NA,
-		OCE, TR,   RU,  PBE
+		BR, EUNE, EUW, JP,
+		KR, LAN, LAS, NA,
+		OCE, TR, RU, PBE
 	};
 
-	const std::string api          = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
-	std::string apiHost        = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
-	std::string staticDataHost     = "https://ddragon.leagueoflegends.com";
+	const std::string api = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
+	std::string apiHost = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
+	std::string staticDataHost = "https://ddragon.leagueoflegends.com";
 	std::vector<std::string> links = {
 		staticDataHost + "/realms/" + realmsEndpoint[NA] + ".json",
 		apiHost + "/lol/summoner/v4/summoners/by-name/" + "AzirionSol" + api,
