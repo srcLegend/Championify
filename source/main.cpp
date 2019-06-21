@@ -29,27 +29,22 @@ int main() {
 		staticDataHost + "/realms/" + realmsEndpoint[NA] + ".json",
 		apiHost + "/lol/summoner/v4/summoners/by-name/" + "AzirionSol" + api,
 	};
+
 	std::string data;
 	std::vector<std::string> version;
 	std::vector<std::string> language;
 
-
-
-
 	data = request(links[0], false);
 	parseJSON(data, "v", version);
 	parseJSON(data, "l", language);
-	std::cout << "\n\n" << data << "\n\n" << std::endl;
 	std::cout << version[0] << std::endl;
 	std::cout << language[0] << std::endl;
 
-	std::vector<std::string> cdnLinks = {
-		staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/champion.json",
-	};
+	links.push_back(staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/champion.json");
 
 	std::vector<std::string> championIds;
-	std::cout << cdnLinks[0] << "\n";
-	data = request(cdnLinks[0], true);
+	std::cout << links[2] << "\n";
+	data = request(links[2], true);
 	parseJSON(data, "id", championIds);
 	for (auto &i : championIds) {
 		std::cout << i << "\n";
