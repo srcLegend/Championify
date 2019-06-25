@@ -3,7 +3,6 @@
 #include <vector>
 #include "parseJSON.hpp"
 #include "request.hpp"
-//testing
 
 int main() {
 	std::vector<std::string> apiDataEndpoint = { // BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE
