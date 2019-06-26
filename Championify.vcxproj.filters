@@ -27,14 +27,11 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\learn.cpp">
-      <Filter>Source Files\source</Filter>
-    </ClCompile>
     <ClCompile Include="source\request.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\learn.hpp">
-      <Filter>Header Files\source</Filter>
+    <ClCompile Include="source\parseJSON.cpp">
+      <Filter>Source Files\source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\request.hpp">
+      <Filter>Header Files\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\parseJSON.hpp">
       <Filter>Header Files\source</Filter>
     </ClInclude>
   </ItemGroup>

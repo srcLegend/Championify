@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\learn.cpp" />
-    <ClCompile Include="source\learn.hpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\parseJSON.cpp" />
     <ClCompile Include="source\request.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\parseJSON.hpp" />
     <ClInclude Include="source\request.hpp" />
   </ItemGroup>
   <ItemGroup>
