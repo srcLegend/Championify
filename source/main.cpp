@@ -21,6 +21,7 @@ int main() {
 		OCE, TR,   RU,  PBE
 	};
 
+	bool redirected;
 	const std::string api          = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
 	std::string apiHost            = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
 	std::string staticDataHost     = "https://ddragon.leagueoflegends.com";
@@ -33,18 +34,25 @@ int main() {
 	std::vector<std::string> version;
 	std::vector<std::string> language;
 
-	data = request(links[0], false);
+	data = request(links[0], redirected, false);
 	parseJSON(data, "v", version);
 	parseJSON(data, "l", language);
 
 	links.push_back(staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/champion.json");
 
-	std::vector<std::string> championIds;
-	data = request(links[2], true);
-	parseJSON(data, "id", championIds);
-	for (auto &i : championIds) {
+	std::vector<std::string> champions;
+	data = request(links[2], redirected, false);
+	parseJSON(data, "id", champions);
+	for (auto &i : champions) {
 		std::cout << i << "\n";
 	}
+
+	links.push_back("https://champion.gg/champion/Aatrox/Top");
+	data = request(links[3], redirected, true);
+	if (!redirected) {
+		std::cout << data << std::endl;
+	}
+
 
 	system("pause");
 	return 0;
