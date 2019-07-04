@@ -29,6 +29,7 @@ int main() {
 		staticDataHost + "/realms/" + realmsEndpoint[NA] + ".json",
 		apiHost + "/lol/summoner/v4/summoners/by-name/" + "AzirionSol" + api,
 	};
+	std::vector<std::string> roles = {"Top", "Jungle", "Middle", "ADC", "Support"};
 
 	std::string data;
 	std::vector<std::string> version;
@@ -39,16 +40,17 @@ int main() {
 	parseJSON(data, "l", language);
 
 	links.push_back(staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/champion.json");
+	links.push_back(staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/item.json");
 
-	std::vector<std::string> champions;
+	std::vector<std::string> championIds;
 	data = request(links[2], redirected, false);
-	parseJSON(data, "id", champions);
-	for (auto &i : champions) {
+	parseJSON(data, "id", championIds);
+	for (auto &i : championIds) {
 		std::cout << i << "\n";
 	}
 
-	links.push_back("https://champion.gg/champion/Aatrox/Top");
-	data = request(links[3], redirected, true);
+	links.push_back("https://champion.gg/champion/" + championIds[0] + "/" + roles[0]);
+	data = request(links[4], redirected, true);
 	if (!redirected) {
 		std::cout << data << std::endl;
 	}
