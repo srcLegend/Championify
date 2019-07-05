@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "parseJSON.hpp"
+#include "processJSON.hpp"
 #include "request.hpp"
 
 int main() {
