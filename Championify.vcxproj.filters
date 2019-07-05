@@ -30,7 +30,7 @@
     <ClCompile Include="source\request.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\parseJSON.cpp">
+    <ClCompile Include="source\processJSON.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -49,7 +49,7 @@
     <ClInclude Include="source\request.hpp">
       <Filter>Header Files\source</Filter>
     </ClInclude>
-    <ClInclude Include="source\parseJSON.hpp">
+    <ClInclude Include="source\processJSON.hpp">
       <Filter>Header Files\source</Filter>
     </ClInclude>
   </ItemGroup>
