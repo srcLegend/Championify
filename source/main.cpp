@@ -4,27 +4,21 @@
 #include "processJSON.hpp"
 #include "request.hpp"
 
+class Champion {
+	public:
+		int asd;
+};
+
 int main() {
-	std::vector<std::string> apiDataEndpoint = { // BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE
-		"br1", "eun1", "euw1", "jp1",
-		"kr",  "la1",  "la2",  "na1",
-		"oc1", "tr1",  "ru",   "pbe1"
-	};
+	enum Regions { BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE };
 	std::vector<std::string> realmsEndpoint = { // BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE
 		"br", "eune", "euw", "jp",
 		"kr",  "lan",  "las",  "na",
 		"oce", "tr",  "ru",   "pbe"
 	};
-	enum Regions { BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE };
 
 	bool redirected;
-	const std::string api = "?api_key=RGAPI-74533ee4-c17a-45cd-8c5b-bbb24411af3a";
-	std::string apiHost = "https://" + apiDataEndpoint[NA] + ".api.riotgames.com";
-	std::string staticDataHost = "https://ddragon.leagueoflegends.com";
-	std::vector<std::string> links = {
-		staticDataHost + "/realms/" + realmsEndpoint[NA] + ".json",
-		apiHost + "/lol/summoner/v4/summoners/by-name/" + "AzirionSol" + api,
-	};
+	std::vector<std::string> links = {"https://ddragon.leagueoflegends.com/realms/" + realmsEndpoint[NA] + ".json"};
 	std::vector<std::string> roles = {"Top", "Jungle", "Middle", "ADC", "Support"};
 
 	std::string data;
@@ -35,18 +29,18 @@ int main() {
 	parseJSON(data, "v", version);
 	parseJSON(data, "l", language);
 
-	links.push_back(staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/champion.json");
-	links.push_back(staticDataHost + "/cdn/" + version[0] + "/data/" + language[0] + "/item.json");
+	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version[0] + "/data/" + language[0] + "/champion.json");
+	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version[0] + "/data/" + language[0] + "/item.json");
 
 	std::vector<std::string> championIds;
-	data = request(links[2], redirected, false);
+	data = request(links[1], redirected, false);
 	parseJSON(data, "id", championIds);
 	for (auto &i : championIds) {
 		std::cout << i << "\n";
 	}
 
 	links.push_back("https://champion.gg/champion/" + championIds[0] + "/" + roles[0]);
-	data = request(links[4], redirected, true);
+	data = request(links[3], redirected, true);
 	if (!redirected) {
 		std::cout << data << std::endl;
 	}
