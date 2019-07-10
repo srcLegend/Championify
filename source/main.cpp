@@ -19,7 +19,37 @@ class Champion {
 		std::string name;
 };
 
+
+class Line {
+	private:
+		double length = 0;
+
+	public:
+		void setLength(double len) {
+			length = len;
+		}
+		double getLength(void) {
+			return length;
+		}
+			// This is the constructor declaration
+		Line(void) {
+			std::cout << "Object is being created" << std::endl;
+		}
+			// This is the destructor: declaration
+		~Line(void) {
+			std::cout << "Object is being deleted" << std::endl;
+		}
+};
+
+
+
 int main() {
+	Line line;
+		// Set line length
+	line.setLength(6.0);
+	std::cout << "Length of line : " << line.getLength() << std::endl;
+
+	/*
 	enum Regions { BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE };
 	std::vector<std::string> realmsEndpoint = { // BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE
 		"br", "eune", "euw", "jp",
@@ -55,7 +85,7 @@ int main() {
 		std::cout << data << std::endl;
 	}
 
-
+	*/
 	system("pause");
 	return 0;
 }
