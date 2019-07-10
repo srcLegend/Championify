@@ -3,10 +3,20 @@
 #include <vector>
 #include "processJSON.hpp"
 #include "request.hpp"
-
+/*
+  "data": {
+	"Aatrox": {
+	  "version": "9.13.1",
+	  "id": "Aatrox",
+	  "key": "266",
+	  "name": "Aatrox",
+*/
 class Champion {
 	public:
-		int asd;
+		std::string version;
+		std::string id;
+		std::string key;
+		std::string name;
 };
 
 int main() {
