@@ -22,7 +22,7 @@ class Champion {
 
 class Line {
 	private:
-		double length = 0;
+		double length;
 
 	public:
 		void setLength(double len) {
@@ -33,6 +33,7 @@ class Line {
 		}
 			// This is the constructor declaration
 		Line(void) {
+			length = 0;
 			std::cout << "Object is being created" << std::endl;
 		}
 			// This is the destructor: declaration
@@ -42,13 +43,16 @@ class Line {
 };
 
 
-
-int main() {
+void testClass() {
 	Line line;
 		// Set line length
 	line.setLength(6.0);
 	std::cout << "Length of line : " << line.getLength() << std::endl;
+}
 
+
+int main() {
+	testClass();
 	/*
 	enum Regions { BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE };
 	std::vector<std::string> realmsEndpoint = { // BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE
