@@ -12,11 +12,20 @@
 	  "name": "Aatrox",
 */
 class Champion {
-	public:
+	private:
 		std::string version;
 		std::string id;
 		std::string key;
 		std::string name;
+	public:
+		//void setVersion(std::string )
+		Champion(void) {
+			version = "";
+			id = "";
+			key = "";
+			name = "";
+		}
+		~Champion(void) {}
 };
 
 
