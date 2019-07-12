@@ -19,12 +19,7 @@ class Champion {
 		std::string name;
 	public:
 		//void setVersion(std::string )
-		Champion(void) {
-			version = "";
-			id = "";
-			key = "";
-			name = "";
-		}
+		Champion(void) {}
 		~Champion(void) {}
 };
 
