@@ -4,9 +4,9 @@
 #include <rapidjson/document.h>
 
 
-template <typename T> void parseRecursively(T &document, std::string &keyName, std::vector<std::string> &value) {
+template <typename T> std::string parseRecursively(T &document, std::string &keyName) {
 	if (document.HasMember(keyName.c_str())) {
-		value.push_back(document[keyName.c_str()].GetString());
+		return document[keyName.c_str()].GetString()
 	} else {
 		for (auto &i : document.GetObject()) {
 				// GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
@@ -15,13 +15,13 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 				case 1: break;
 				case 2: break;
 				case 3: {
-					parseRecursively(document[i.name], keyName, value);
+					parseRecursively(document[i.name], keyName);
 					break;
 				}
 				case 4: break;
 				case 5: {
 					if (document.HasMember(keyName.c_str())) {
-						value.push_back(i.value.GetString());
+						return i.value.GetString();
 					}
 					break;
 				}
@@ -33,9 +33,10 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 			}
 		}
 	}
+	return "Error";
 }
 
-void parseJSON(std::string &data, std::string keyName, std::vector<std::string> &value) {
+std::string parseJSON(std::string &data, std::string keyName) {
 	rapidjson::Document document;
 	document.Parse(data.c_str());
 
@@ -51,7 +52,14 @@ void parseJSON(std::string &data, std::string keyName, std::vector<std::string> 
 				break;
 			}
 		}
+		return "Error";
 	} else {
-		parseRecursively(document, keyName, value);
+		std::string value = parseRecursively(document, keyName);
+		if (value == "Error") {
+			std::cerr << "Value not found" << std::endl;
+			return "Error";
+		} else {
+			return parseRecursively(document, keyName);
+		}
 	}
 }

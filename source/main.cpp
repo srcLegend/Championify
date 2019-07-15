@@ -13,14 +13,19 @@
 */
 class Champion {
 	private:
-		std::string version;
-		std::string id;
-		std::string key;
-		std::string name;
+		std::vector<std::string> championValues;
 	public:
-		//void setVersion(std::string )
-		Champion(void) {}
+		Champion(void) {
+			championValues.reserve(20000);
+		}
 		~Champion(void) {}
+		void setValues(std::string &data) {
+			parseJSON(data, "version", championValues[0]);
+			parseJSON(data, "id", championValues[1]);
+			parseJSON(data, "key", championValues[2]);
+			parseJSON(data, "name", championValues[3]);
+		}
+
 };
 
 
