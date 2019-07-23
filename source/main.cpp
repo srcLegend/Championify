@@ -6,7 +6,7 @@
 /*
   "data": {
 	"Aatrox": {
-	  "version": "9.13.1",
+	  "version": "9.14.1",
 	  "id": "Aatrox",
 	  "key": "266",
 	  "name": "Aatrox",
@@ -15,17 +15,14 @@ class Champion {
 	private:
 		std::vector<std::string> championValues;
 	public:
-		Champion(void) {
-			championValues.reserve(20000);
-		}
+		Champion(void) {}
 		~Champion(void) {}
 		void setValues(std::string &data) {
-			parseJSON(data, "version", championValues[0]);
-			parseJSON(data, "id", championValues[1]);
-			parseJSON(data, "key", championValues[2]);
-			parseJSON(data, "name", championValues[3]);
+			championValues.push_back(parseJSON(data, "version"));
+			championValues.push_back(parseJSON(data, "id"));
+			championValues.push_back(parseJSON(data, "key"));
+			championValues.push_back(parseJSON(data, "name"));
 		}
-
 };
 
 
@@ -62,7 +59,7 @@ void testClass() {
 
 int main() {
 	testClass();
-	/*
+
 	enum Regions { BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE };
 	std::vector<std::string> realmsEndpoint = { // BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE
 		"br", "eune", "euw", "jp",
@@ -75,30 +72,29 @@ int main() {
 	std::vector<std::string> roles = {"Top", "Jungle", "Middle", "ADC", "Support"};
 
 	std::string data;
-	std::vector<std::string> version;
-	std::vector<std::string> language;
+	std::string version;
+	std::string language;
 
 	data = request(links[0], redirected, false);
-	parseJSON(data, "v", version);
-	parseJSON(data, "l", language);
+	version = parseJSON(data, "v");
+	language = parseJSON(data, "l");
 
-	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version[0] + "/data/" + language[0] + "/champion.json");
-	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version[0] + "/data/" + language[0] + "/item.json");
+	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/champion.json");
+	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/item.json");
 
 	std::vector<std::string> championIds;
 	data = request(links[1], redirected, false);
-	parseJSON(data, "id", championIds);
+	//parseJSON(data, "id", championIds);
 	for (auto &i : championIds) {
 		std::cout << i << "\n";
 	}
 
-	links.push_back("https://champion.gg/champion/" + championIds[0] + "/" + roles[0]);
-	data = request(links[3], redirected, true);
+	//links.push_back("https://champion.gg/champion/" + championIds[0] + "/" + roles[0]);
+	//data = request(links[3], redirected, true);
 	if (!redirected) {
 		std::cout << data << std::endl;
 	}
 
-	*/
 	system("pause");
 	return 0;
 }
