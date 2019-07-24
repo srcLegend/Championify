@@ -4,9 +4,9 @@
 #include <rapidjson/document.h>
 
 
-template <typename T> void parseStringRecursively(T &document, std::string &keyName, std::string &stringValue) {
+template <typename T> void parseRecursively(T &document, std::string &keyName, std::vector<std::string> &value) {
 	if (document.HasMember(keyName.c_str())) {
-		stringValue = document[keyName.c_str()].GetString();
+		value.push_back(document[keyName.c_str()].GetString());
 	} else {
 		for (auto &i : document.GetObject()) {
 				// GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
@@ -15,20 +15,20 @@ template <typename T> void parseStringRecursively(T &document, std::string &keyN
 				case 1: break;
 				case 2: break;
 				case 3: {
-					parseStringRecursively(document[i.name], keyName, stringValue);
+					parseRecursively(document[i.name], keyName, value);
 					break;
 				}
 				case 4: break;
 				case 5: {
 					if (document.HasMember(keyName.c_str())) {
-						stringValue = i.value.GetString();
+						value.push_back(i.value.GetString());
 					}
 					break;
 				}
 				case 6: break;
 				default: {
 					std::cerr << "Unknown key type : " << i.name.GetString() << std::endl;
-					stringValue = "Error";
+					value.push_back("Error");
 					break;
 				}
 			}
@@ -36,39 +36,7 @@ template <typename T> void parseStringRecursively(T &document, std::string &keyN
 	}
 }
 
-template <typename T> void parseVectorRecursively(T &document, std::string &keyName, std::vector<std::string> &vectorValue) {
-	if (document.HasMember(keyName.c_str())) {
-		stringValue = document[keyName.c_str()].GetString();
-	} else {
-		for (auto &i : document.GetObject()) {
-				// GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
-			switch (document[i.name].GetType()) {
-				case 0: break;
-				case 1: break;
-				case 2: break;
-				case 3: {
-					parseVectorRecursively(document[i.name], keyName, stringValue);
-					break;
-				}
-				case 4: break;
-				case 5: {
-					if (document.HasMember(keyName.c_str())) {
-						stringValue = i.value.GetString();
-					}
-					break;
-				}
-				case 6: break;
-				default: {
-					std::cerr << "Unknown key type : " << i.name.GetString() << std::endl;
-					stringValue = "Error";
-					break;
-				}
-			}
-		}
-	}
-}
-
-std::string parseJSON(std::string &data, std::string keyName, bool vector) {
+std::string parseJSON(std::string &data, std::string keyName) {
 	rapidjson::Document document;
 	document.Parse(data.c_str());
 
