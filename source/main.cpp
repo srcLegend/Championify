@@ -18,10 +18,10 @@ class Champion {
 		Champion(void) {}
 		~Champion(void) {}
 		void setValues(std::string &data) {
-			championValues.push_back(parseJSON(data, "version"));
-			championValues.push_back(parseJSON(data, "id"));
-			championValues.push_back(parseJSON(data, "key"));
-			championValues.push_back(parseJSON(data, "name"));
+			championValues.push_back(stringParseJSON(data, "version"));
+			championValues.push_back(stringParseJSON(data, "id"));
+			championValues.push_back(stringParseJSON(data, "key"));
+			championValues.push_back(stringParseJSON(data, "name"));
 		}
 };
 
@@ -76,15 +76,15 @@ int main() {
 	std::string language;
 
 	data = request(links[0], redirected, false);
-	version = parseJSON(data, "v");
-	language = parseJSON(data, "l");
+	stringParseJSON(data, "v", version);
+	stringParseJSON(data, "l", language);
 
 	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/champion.json");
 	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/item.json");
 
 	std::vector<std::string> championIds;
 	data = request(links[1], redirected, false);
-	//parseJSON(data, "id", championIds);
+		//stringParseJSON(data, "id", championIds);
 	for (auto &i : championIds) {
 		std::cout << i << "\n";
 	}

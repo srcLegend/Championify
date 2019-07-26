@@ -2,4 +2,4 @@
 #include <string>
 
 
-std::string parseJSON(std::string &data, std::string keyName, bool vector);
+std::string stringParseJSON(std::string &data, std::string keyName, std::string &stringValue);

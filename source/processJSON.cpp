@@ -3,8 +3,12 @@
 #include <vector>
 #include <rapidjson/document.h>
 
+#include <typeinfo>
 
-template <typename T> void parseRecursively(T &document, std::string &keyName, std::vector<std::string> &value) {
+
+template <typename T1, typename T2> void parseRecursively(T1 &document, std::string &keyName, T2 &value) {
+	std::cout << typeid(document).name() << std::endl;
+	std::cout << typeid(value).name() << std::endl;
 	if (document.HasMember(keyName.c_str())) {
 		value.push_back(document[keyName.c_str()].GetString());
 	} else {
@@ -36,7 +40,7 @@ template <typename T> void parseRecursively(T &document, std::string &keyName, s
 	}
 }
 
-std::string parseJSON(std::string &data, std::string keyName) {
+void stringParseJSON(std::string &data, std::string keyName, std::string &stringValue) {
 	rapidjson::Document document;
 	document.Parse(data.c_str());
 
@@ -52,15 +56,15 @@ std::string parseJSON(std::string &data, std::string keyName) {
 				break;
 			}
 		}
-		return "Error";
+		stringValue = "Error";
 	} else {
-		std::string value;
-		parseStringRecursively(document, keyName, value);
-		if (value == "Error") {
-			std::cerr << "Value not found" << std::endl;
-			return "Error";
-		} else {
-			return value;
-		}
+		//std::vector<std::string> vectorValue;
+		//parseStringRecursively(document, keyName, vectorValue);
+		//if (value == "Error") {
+		//	std::cerr << "Value not found" << std::endl;
+		//	stringValue = "Error";
+		//} else {
+		//	stringValue = value;
+		//}
 	}
 }
