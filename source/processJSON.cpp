@@ -1,16 +1,29 @@
 #include <iostream>
 #include <string>
+#include <typeinfo>
 #include <vector>
 #include <rapidjson/document.h>
 
-#include <typeinfo>
-
+//template <typename T1, typename T2> void setValue(T1 &document, std::string &keyName, T2 &value) {
+//	if (typeid(value) == typeid(std::string)) {
+//		value = document[keyName.c_str()].GetString();
+//	} else if (typeid(value) == typeid(std::vector<std::string>)) {
+//		value.push_back(document[keyName.c_str()].GetString());
+//	}
+//}
 
 template <typename T1, typename T2> void parseRecursively(T1 &document, std::string &keyName, T2 &value) {
-	std::cout << typeid(document).name() << std::endl;
-	std::cout << typeid(value).name() << std::endl;
 	if (document.HasMember(keyName.c_str())) {
-		value.push_back(document[keyName.c_str()].GetString());
+		std::vector<std::string> tempVector;
+		tempVector.push_back(document[keyName.c_str()].GetString());
+
+		if (typeid(value) == typeid(std::string)) {
+			//value = tempVector[0];
+			std::cout << "Issa string" << std::endl;
+		} else if (typeid(value) == typeid(std::vector<std::string>)) {
+			value.push_back(document[keyName.c_str()].GetString());
+			std::cout << "Issa vector" << std::endl;
+		}
 	} else {
 		for (auto &i : document.GetObject()) {
 				// GetType() types are : Null = 0, False = 1, True = 2, Object = 3, Array = 4, String = 5, Number = 6
@@ -25,14 +38,14 @@ template <typename T1, typename T2> void parseRecursively(T1 &document, std::str
 				case 4: break;
 				case 5: {
 					if (document.HasMember(keyName.c_str())) {
-						value.push_back(i.value.GetString());
+						//value.push_back(i.value.GetString());
 					}
 					break;
 				}
 				case 6: break;
 				default: {
 					std::cerr << "Unknown key type : " << i.name.GetString() << std::endl;
-					value.push_back("Error");
+					//value.push_back("Error");
 					break;
 				}
 			}
@@ -58,13 +71,15 @@ void stringParseJSON(std::string &data, std::string keyName, std::string &string
 		}
 		stringValue = "Error";
 	} else {
-		//std::vector<std::string> vectorValue;
-		//parseStringRecursively(document, keyName, vectorValue);
-		//if (value == "Error") {
-		//	std::cerr << "Value not found" << std::endl;
-		//	stringValue = "Error";
-		//} else {
-		//	stringValue = value;
-		//}
+		std::vector<std::string> vectorValue;
+		//std::string testValue;
+		parseRecursively(document, keyName, vectorValue);
+		//parseRecursively(document, keyName, testValue);
+		if (vectorValue[0] == "Error") {
+			std::cerr << "Value not found" << std::endl;
+			stringValue = "Error";
+		} else {
+			stringValue = vectorValue[0];
+		}
 	}
 }

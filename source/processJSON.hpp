@@ -2,4 +2,4 @@
 #include <string>
 
 
-std::string stringParseJSON(std::string &data, std::string keyName, std::string &stringValue);
+void stringParseJSON(std::string &data, std::string keyName, std::string &stringValue);
