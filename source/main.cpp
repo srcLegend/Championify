@@ -11,58 +11,34 @@
 	  "key": "266",
 	  "name": "Aatrox",
 */
-//class Champion {
-//	private:
-//		std::string version;
-//		std::string id;
-//		std::string key;
-//		std::string name;
-//	public:
-//		Champion(void) {}
-//		~Champion(void) {}
-//		void setValues(std::string &data) {
-//			//championValues.push_back(stringParseJSON(data, "version"));
-//			//championValues.push_back(stringParseJSON(data, "id"));
-//			//championValues.push_back(stringParseJSON(data, "key"));
-//			//championValues.push_back(stringParseJSON(data, "name"));
-//		}
-//};
-
-
-class Line {
+class Champion {
 	private:
-		double length;
-
+		std::vector<std::string> championValues;
+		std::string version;
+		std::string id;
+		std::string key;
+		std::string name;
 	public:
-		void setLength(double len) {
-			length = len;
+		Champion(void) {}
+
+		void setValues(std::string &data) {
+			parseJSON(data, "version", version);
+			parseJSON(data, "id", id);
+			parseJSON(data, "key", key);
+			parseJSON(data, "name", name);
 		}
-		double getLength(void) {
-			return length;
+		std::vector<std::string> getValues(void) {
+			championValues.push_back(version);
+			championValues.push_back(id);
+			championValues.push_back(key);
+			championValues.push_back(name);
+			return championValues;
 		}
-			// This is the constructor declaration
-		Line(void) {
-			length = 0;
-			std::cout << "Object is being created" << std::endl;
-		}
-			// This is the destructor: declaration
-		~Line(void) {
-			std::cout << "Object is being deleted" << std::endl;
-		}
+
+		~Champion(void) {}
 };
 
-
-void testClass() {
-	Line line;
-		// Set line length
-	line.setLength(6.0);
-	std::cout << "Length of line : " << line.getLength() << std::endl;
-}
-
-
 int main() {
-	testClass();
-
 	enum Regions { BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE };
 	std::vector<std::string> realmsEndpoint = { // BR, EUNE, EUW, JP, KR, LAN, LAS, NA, OCE, TR, RU, PBE
 		"br", "eune", "euw", "jp",
@@ -77,24 +53,29 @@ int main() {
 	bool redirected;
 
 	data = request(links[0], redirected, false);
-	stringParseJSON(data, "v", version);
-	stringParseJSON(data, "l", language);
+	parseJSON(data, "v", version);
+	parseJSON(data, "l", language);
 
 	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/champion.json");
 	links.push_back("https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/item.json");
 
 	std::vector<std::string> championIds;
-	data = request(links[1], redirected, false);
-		//stringParseJSON(data, "id", championIds);
-	//for (auto &i : championIds) {
-	//	std::cout << i << "\n";
-	//}
+	data = request(links[1], redirected, true);
+	parseJSON(data, "id", championIds);
+	for (auto &i : championIds) {
+		std::cout << i << std::endl;
+		Champion i;
+		i.setValues(data);
+	}
+
+	//std::vector<std::string> championValue = i.getValues();
+
 
 	//links.push_back("https://champion.gg/champion/" + championIds[0] + "/" + roles[0]);
 	//data = request(links[3], redirected, true);
-	if (!redirected) {
-		//std::cout << data << std::endl;
-	}
+	//if (!redirected) {
+	//	std::cout << data << std::endl;
+	//}
 
 	system("pause");
 	return 0;
