@@ -64,8 +64,6 @@ int main() {
 	parseJSON(data, "id", championIds);
 	for (auto &i : championIds) {
 		std::cout << i << std::endl;
-		Champion i;
-		i.setValues(data);
 	}
 
 	//std::vector<std::string> championValue = i.getValues();
